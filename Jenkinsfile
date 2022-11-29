@@ -27,7 +27,7 @@ pipeline {
             steps {
                 script {
                     
-                    sh 'sudo docker build -t djddocker17/mymavenapp .'
+                    sh 'sudo docker build -t <dockerhubrepo> .'
                 }
                 
             }
@@ -36,7 +36,7 @@ pipeline {
             steps {
                 script {
                     
-                    sh 'sudo docker run -d --name dockermaven -p 8080:8080 djddocker17/mymavenapp'
+                    sh 'sudo docker run -d --name dockermaven -p 8080:8080 <dockerhubrepo>'
                 }
                 
             }
@@ -46,8 +46,8 @@ pipeline {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'DockerhubPwd', variable: 'Dockerpwd')]) {
-                        sh 'sudo docker login -u djddocker17 -p ${Dockerpwd}'
-                        sh 'sudo docker push djddocker17/mymavenapp'
+                        sh 'sudo docker login -u <dockerhubloginUID> -p ${Dockerpwd}'
+                        sh 'sudo docker push <dockerhubrepo>'
                     }
                 }
             }
